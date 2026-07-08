@@ -1,4 +1,10 @@
+import sys
+import os
+
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import streamlit as st
+from chat import ask_ai
 
 st.set_page_config(
     page_title="EngineerGPT",
@@ -7,19 +13,25 @@ st.set_page_config(
 )
 
 st.title("🤖 EngineerGPT")
-st.subheader("Offline AI Engineering Assistant")
+st.write("Your Personal AI Engineering Assistant")
 
-st.markdown("""
-Welcome to **EngineerGPT**.
+question = st.text_area(
+    "Ask anything...",
+    height=150
+)
 
-### Features
-- 💬 Chat with Local AI (Ollama)
-- 📄 Upload Engineering PDFs
-- 🔍 Ask Questions About PDFs
-- 🧠 RAG using ChromaDB
-- 🔒 Runs Completely Offline
+if st.button("Generate Response"):
 
----
-""")
+    if question.strip() == "":
+        st.warning("Please enter a question.")
+    else:
 
-st.info("Next step: Connect EngineerGPT to Ollama.")
+        with st.spinner("Thinking..."):
+
+            answer = ask_ai(question)
+
+        st.success("Done!")
+
+        st.markdown("### Response")
+
+        st.write(answer)

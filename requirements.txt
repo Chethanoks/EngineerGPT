@@ -1,8 +1,10 @@
 streamlit
 ollama
+langchain
+langchain-community
+langchain-ollama
 chromadb
+pypdf
 sentence-transformers
-pymupdf
-requests
+python-dotenv
 pandas
-numpy
